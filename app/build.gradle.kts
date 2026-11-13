@@ -20,52 +20,34 @@ android {
             isMinifyEnabled = false
         }
         configureEach {
-            //应用名
-            //app name
-            resValue("string","app_name","XXX Renderer")
-            //包名后缀
-            //package name Suffix
-            applicationIdSuffix = ".xxx"
+            // 应用名 (可保持为 "LTW Renderer")
+            resValue("string", "app_name", "LTW Renderer")
+            applicationIdSuffix = ".ltw"
 
-            //渲染器在启动器内显示的名称
-            //The name displayed by the renderer in the launcher
-            manifestPlaceholders["des"] = ""
-            //渲染器的具体定义 格式为 名称:渲染器库名:EGL库名 例如 LTW:libltw.so:libltw.so
-            //The specific definition format of a renderer is ${name}:${renderer library name}:${EGL library name}, for example:   LTW:libltw.so:libltw.so
-            manifestPlaceholders["renderer"] = ""
+            // 【必改】渲染器在启动器内显示的名称
+            manifestPlaceholders["des"] = "LTW"
 
-            //特殊Env
-            //Special Env
-            //DLOPEN=libxxx.so 用于加载额外库文件
-            //DLOPEN=libxxx.so used to load external library
-            //如果有多个库,可以使用","隔开,例如  DLOPEN=libxxx.so,libyyy.so
-            //If there are multiple libraries, you can use "," to separate them, for example  DLOPEN=libxxx.so,libyyy.so
-            manifestPlaceholders["boatEnv"] = mutableMapOf<String,String>().apply {
+            // 【必改】渲染器定义，格式为 名称:渲染器库名:EGL库名
+            // LTW 的核心动态库就是 libltw.so
+            manifestPlaceholders["renderer"] = "LTW:libltw.so:libltw.so"
 
-            }.run {
+            // 特殊 Env 留空即可，LTW 不需要额外的 DLOPEN
+            manifestPlaceholders["boatEnv"] = mutableMapOf<String, String>().apply {}.run {
                 var env = ""
-                forEach { (key, value) ->
-                    env += "$key=$value:"
-                }
+                forEach { (key, value) -> env += "$key=$value:" }
                 env.dropLast(1)
             }
 
-            manifestPlaceholders["pojavEnv"] = mutableMapOf<String,String>().apply {
-
-            }.run {
+            manifestPlaceholders["pojavEnv"] = mutableMapOf<String, String>().apply {}.run {
                 var env = ""
-                forEach { (key, value) ->
-                    env += "$key=$value:"
-                }
+                forEach { (key, value) -> env += "$key=$value:" }
                 env.dropLast(1)
             }
 
-            //最小支持的MC版本
-            //The minimum supported MC version
-            manifestPlaceholders["minMCVer"] = ""
-            //最大支持的MC版本
-            //The maximum supported MC version
-            manifestPlaceholders["maxMCVer"] = ""
+            // 【必改】支持的最低与最高 MC 版本
+            // LTW 主要面向 1.17 及以上，上限可设为当前快照版本
+            manifestPlaceholders["minMCVer"] = "1.17"
+            manifestPlaceholders["maxMCVer"] = "1.21.5"
         }
     }
     compileOptions {
@@ -78,5 +60,5 @@ android {
 }
 
 dependencies {
-implementation(files("libs/ltw-release.aar"))
+    implementation(files("libs/ltw-release.aar"))
 }
