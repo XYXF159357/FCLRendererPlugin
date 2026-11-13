@@ -78,4 +78,5 @@ android {
 }
 
 dependencies {
+implementation(files("libs/ltw-release.aar"))
 }
