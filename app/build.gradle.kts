@@ -48,7 +48,7 @@ signingConfig = signingConfigs.getByName("debug")
             // 【必改】支持的最低与最高 MC 版本
             // LTW 主要面向 1.17 及以上，上限可设为当前快照版本
             manifestPlaceholders["minMCVer"] = "1.17"
-            manifestPlaceholders["maxMCVer"] = "1.21.5"
+            manifestPlaceholders["maxMCVer"] = "26.4"
         }
     }
     compileOptions {
