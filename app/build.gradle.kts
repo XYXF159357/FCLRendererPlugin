@@ -18,6 +18,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+signingConfig = signingConfigs.getByName("debug")
         }
         configureEach {
             // 应用名 (可保持为 "LTW Renderer")
